@@ -12,11 +12,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\GameLibrary.Core\GameLibrary.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GameLibrary.Core\GameLibrary.Core.csproj" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

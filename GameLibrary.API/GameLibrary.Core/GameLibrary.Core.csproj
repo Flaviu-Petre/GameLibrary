@@ -10,4 +10,10 @@
     <ProjectReference Include="..\GameLibrary.Database\GameLibrary.Database.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dtos\" />
+    <Folder Include="Mapping\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>

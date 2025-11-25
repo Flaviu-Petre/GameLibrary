@@ -10,4 +10,10 @@
     <ProjectReference Include="..\GameLibrary.Infrastructure\GameLibrary.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\" />
+    <Folder Include="Context\" />
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
 </Project>
