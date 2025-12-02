@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace GameLibrary.Database.Context
 {
-    public class GameLibraryContext : DbContext
+    public class GameLibraryDbContext : DbContext
     {
-        public GameLibraryContext(DbContextOptions<GameLibraryContext> options) : base(options)
+        public GameLibraryDbContext(DbContextOptions<GameLibraryDbContext> options) : base(options)
         {
         }
 
