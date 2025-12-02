@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GameLibrary.Database.Migrations
 {
-    [DbContext(typeof(GameLibraryContext))]
+    [DbContext(typeof(GameLibraryDbContext))]
     [Migration("20251202184843_InitialCreate")]
     partial class InitialCreate
     {

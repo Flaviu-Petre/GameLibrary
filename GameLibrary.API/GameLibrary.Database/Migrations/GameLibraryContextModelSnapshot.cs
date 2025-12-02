@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GameLibrary.Database.Migrations
 {
-    [DbContext(typeof(GameLibraryContext))]
+    [DbContext(typeof(GameLibraryDbContext))]
     partial class GameLibraryContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
