@@ -9,6 +9,7 @@ public static class DIConfig
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
         services.AddScoped<IDeveloperService, DeveloperService>();
+        services.AddScoped<IGenreService, GenreService>();
         return services;
     }
 }

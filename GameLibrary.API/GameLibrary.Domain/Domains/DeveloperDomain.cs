@@ -1,21 +1,12 @@
-﻿using GameLibrary.Entity.Entities;
+﻿using GameLibrary.Domain.Domains.Interface;
+using GameLibrary.Entity.Entities;
 using GameLibrary.Repository.Repository.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameLibrary.Domain.Domains
 {
-    public class DeveloperDomain
+    public class DeveloperDomain(IDeveloperRepository developerRepository) : IDeveloperDomain
     {
-        private readonly IDeveloperRepository _developerRepository;
-
-        public DeveloperDomain(IDeveloperRepository developerRepository)
-        {
-            _developerRepository = developerRepository;
-        }
+        private readonly IDeveloperRepository _developerRepository = developerRepository;
 
         public async Task<IEnumerable<Developer>> GetAllDevelopersAsync()
         {

@@ -1,4 +1,5 @@
 using GameLibrary.Domain.Domains;
+using GameLibrary.Domain.Domains.Interface;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GameLibrary.Domain;
@@ -7,7 +8,8 @@ public static class DIConfig
 {
     public static IServiceCollection AddDomains(this IServiceCollection services)
     {
-        services.AddScoped<DeveloperDomain>();
+        services.AddScoped<IDeveloperDomain, DeveloperDomain>();
+        services.AddScoped<IGenreDomain, GenreDomain>();
 
         return services;
     }

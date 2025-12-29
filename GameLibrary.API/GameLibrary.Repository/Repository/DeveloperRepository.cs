@@ -3,11 +3,6 @@ using GameLibrary.Repository.Context;
 using GameLibrary.Repository.Repositories;
 using GameLibrary.Repository.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameLibrary.Repository.Repository
 {

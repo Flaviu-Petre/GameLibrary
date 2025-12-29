@@ -1,23 +1,13 @@
-﻿using GameLibrary.Domain.Domains;
+﻿using GameLibrary.Domain.Domains.Interface;
 using GameLibrary.Service.Dtos.Developer;
 using GameLibrary.Service.Mapping;
 using GameLibrary.Service.Services.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameLibrary.Service.Services
 {
-    public class DeveloperService : IDeveloperService
+    public class DeveloperService(IDeveloperDomain developerDomain) : IDeveloperService
     {
-        private readonly DeveloperDomain _developerDomain;
-
-        public DeveloperService(DeveloperDomain developerDomain)
-        {
-            _developerDomain = developerDomain;
-        }
+        private readonly IDeveloperDomain _developerDomain = developerDomain;
 
         public async Task<IEnumerable<DeveloperDto>> GetAllDevelopersAsync()
         {

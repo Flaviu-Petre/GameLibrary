@@ -6,14 +6,9 @@ namespace GameLibrary.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class DevelopersController : ControllerBase
+    public class DevelopersController(IDeveloperService developerService) : ControllerBase
     {
-        private readonly IDeveloperService _developerService;
-
-        public DevelopersController(IDeveloperService developerService)
-        {
-            _developerService = developerService;
-        }
+        private readonly IDeveloperService _developerService = developerService;
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DeveloperDto>>> GetAll()

@@ -16,6 +16,7 @@ public static class DIConfig
             options.UseSqlServer(connectionString));
 
         services.AddScoped<IDeveloperRepository, DeveloperRepository>();
+        services.AddScoped<IGenreRepository, GenreRepository>();
 
         return services;
     }
