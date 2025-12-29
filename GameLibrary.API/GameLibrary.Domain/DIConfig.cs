@@ -10,6 +10,7 @@ public static class DIConfig
     {
         services.AddScoped<IDeveloperDomain, DeveloperDomain>();
         services.AddScoped<IGenreDomain, GenreDomain>();
+        services.AddScoped<IPlatformDomain, PlatformDomain>();
 
         return services;
     }
