@@ -1,4 +1,5 @@
-﻿using GameLibrary.Service.Dtos.Developer;
+﻿using GameLibrary.Entity.Entities;
+using GameLibrary.Service.Dtos.Developer;
 
 namespace GameLibrary.Service.Services.Interface
 {
@@ -9,8 +10,9 @@ namespace GameLibrary.Service.Services.Interface
         Task<DeveloperDto> CreateDeveloperAsync(CreateDeveloperDto dto);
         Task<DeveloperDto> GetDeveloperByNameAsync(string name);
         Task DeleteDeveloperAsync(int id);
-
-        Task<IEnumerable<DeveloperDto>> SP_GetDevelopersByCountryAsync(string country);
         Task UpdateDeveloperAsync(UpdateDeveloperDto dto);
+        Task<IEnumerable<DeveloperDto>> SP_GetDevelopersByCountryAsync(string country);
+        Task<IEnumerable<DeveloperDto>> SP_GetDevelopersPaginatedAsync(int pageNumber, int pageSize);
+
     }
 }

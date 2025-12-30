@@ -3,7 +3,8 @@ using GameLibrary.Repository.Context;
 using GameLibrary.Repository.Repositories;
 using GameLibrary.Repository.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Data.SqlClient; 
+using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace GameLibrary.Repository.Repository
 {
@@ -32,6 +33,18 @@ namespace GameLibrary.Repository.Repository
 
             return await _dbSet
                 .FromSqlRaw("EXEC sp_GetDevelopersByCountry @Country", countryParam)
+                .IgnoreQueryFilters()
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Developer>> SP_GetDevelopersPaginatedAsync(int pageNumber, int pageSize)
+        {
+            var pageNumberParam = new SqlParameter("@PageNumber", pageNumber);
+            var pageSizeParam = new SqlParameter("@PageSize", pageSize);
+
+            return await _dbSet
+                .FromSqlRaw("EXEC sp_GetDevelopersPaginated @PageNumber, @PageSize", pageNumberParam, pageSizeParam)
                 .IgnoreQueryFilters()
                 .AsNoTracking()
                 .ToListAsync();

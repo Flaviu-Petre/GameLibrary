@@ -92,5 +92,14 @@ namespace GameLibrary.API.Controllers
                 return NotFound(ex.Message);
             }
         }
+
+        [HttpGet("sp/paginated")]
+        public async Task<ActionResult<IEnumerable<DeveloperDto>>> SP_GetPaginated(
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10)
+        {
+            var developers = await _developerService.SP_GetDevelopersPaginatedAsync(pageNumber, pageSize);
+            return Ok(developers);
+        }
     }
 }

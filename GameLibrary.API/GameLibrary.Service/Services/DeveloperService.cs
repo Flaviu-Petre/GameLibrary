@@ -76,5 +76,11 @@ namespace GameLibrary.Service.Services
 
             return _developerDomain.UpdateDeveloperAsync(developer);
         }
+
+        public async Task<IEnumerable<DeveloperDto>> SP_GetDevelopersPaginatedAsync(int pageNumber, int pageSize)
+        {
+            var developers = await _developerDomain.SP_GetDevelopersPaginatedAsync(pageNumber, pageSize);
+            return developers.Select(d => d.ToDto());
+        }
     }
 }

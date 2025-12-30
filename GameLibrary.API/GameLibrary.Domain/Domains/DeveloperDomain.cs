@@ -51,5 +51,13 @@ namespace GameLibrary.Domain.Domains
 
             return await _developerRepository.SP_GetDevelopersByCountryAsync(country);
         }
+
+        public async Task<IEnumerable<Developer>> SP_GetDevelopersPaginatedAsync(int pageNumber, int pageSize)
+        {
+            if (pageNumber < 1) pageNumber = 1;
+            if (pageSize < 1 || pageSize > 100) pageSize = 10;
+
+            return await _developerRepository.SP_GetDevelopersPaginatedAsync(pageNumber, pageSize);
+        }
     }
 }
