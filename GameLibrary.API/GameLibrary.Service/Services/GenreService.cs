@@ -1,4 +1,8 @@
-﻿using GameLibrary.Domain.Domains.Interface;
+﻿using GameLibrary.Domain.Domains;
+using GameLibrary.Domain.Domains.Interface;
+using GameLibrary.Entity.Entities;
+using GameLibrary.Service.Dtos.Genre;
+using GameLibrary.Service.Mapping;
 using GameLibrary.Service.Services.Interface;
 
 namespace GameLibrary.Service.Services
@@ -6,5 +10,48 @@ namespace GameLibrary.Service.Services
     public class GenreService(IGenreDomain genreDomain) : IGenreService
     {
         private readonly IGenreDomain _genreDomain = genreDomain;
+
+        public async Task<IEnumerable<GenreDto>> GetAllGenresAsync()
+        {
+            var genres = await _genreDomain.GetAllGenresAsync();
+            return genres.Select(g => g.ToDto());
+        }
+
+        public async Task<GenreDto?> GetGenreByIdAsync(int id)
+        {
+            if (id <= 0)
+                return null;
+
+            var genre = await _genreDomain.GetGenreByIdAsync(id);
+            return genre?.ToDto();
+        }
+
+        public async Task<GenreDto> CreateGenreAsync(CreateGenreDto dto)
+        {
+            if (string.IsNullOrEmpty(dto.Name))
+                throw new ArgumentException("Genre name is required");
+
+            var Genre = dto.ToEntity();
+            await _genreDomain.CreateGenreAsync(Genre);
+            return Genre.ToDto();
+        }
+
+        public async Task<GenreDto?> GetGenreByNameAsync(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentException("Genre name is required");
+
+            var genre = await _genreDomain.GetGenreByNameAsync(name);
+            return genre?.ToDto();
+        }
+
+
+        public async Task DeleteGenreByIdAsync(int id)
+        {
+            if (id <= 0)
+                throw new ArgumentException("Invalid Genre ID");
+
+            await _genreDomain.DeleteGenreByIdAsync(id);
+        }
     }
 }
