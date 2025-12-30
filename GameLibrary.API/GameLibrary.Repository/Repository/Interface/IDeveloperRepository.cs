@@ -11,5 +11,7 @@ namespace GameLibrary.Repository.Repository.Interface
     public interface IDeveloperRepository : IRepository<Developer>
     {
         Task<Developer?> GetByNameAsync(string name);
+
+        Task<IEnumerable<Developer>> SP_GetDevelopersByCountryAsync(string country);
     }
 }

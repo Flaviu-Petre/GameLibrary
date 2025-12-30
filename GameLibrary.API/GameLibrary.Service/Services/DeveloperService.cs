@@ -51,5 +51,30 @@ namespace GameLibrary.Service.Services
 
             await _developerDomain.DeleteDeveloperAsync(id);
         }
+
+        public async Task<IEnumerable<DeveloperDto>> SP_GetDevelopersByCountryAsync(string country)
+        {
+            if (string.IsNullOrEmpty(country))
+                throw new ArgumentException("Country is required");
+
+            var developers = await _developerDomain.SP_GetDevelopersByCountryAsync(country);
+            return developers.Select(d => d.ToDto());
+        }
+
+        public Task UpdateDeveloperAsync(UpdateDeveloperDto dto)
+        {
+            if(dto.Name == null)
+                throw new ArgumentException("Developer name is required");
+
+            if(dto.FoundedDate == null)
+                throw new ArgumentException("Founded date is required");
+
+            if(dto.Country == null)
+                throw new ArgumentException("Country is required");
+
+            var developer = dto.ToEntity();
+
+            return _developerDomain.UpdateDeveloperAsync(developer);
+        }
     }
 }

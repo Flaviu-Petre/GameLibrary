@@ -37,6 +37,20 @@ namespace GameLibrary.API.Controllers
             return Ok(developer);
         }
 
+        [HttpGet("getByCountry/{country}")]
+        public async Task<ActionResult<IEnumerable<DeveloperDto>>> SP_GetByCountry(string country)
+        {
+            try
+            {
+                var developers = await _developerService.SP_GetDevelopersByCountryAsync(country);
+                return Ok(developers);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult<DeveloperDto>> Create([FromBody] CreateDeveloperDto dto)
         {
@@ -48,6 +62,20 @@ namespace GameLibrary.API.Controllers
             catch (ArgumentException ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] UpdateDeveloperDto dto)
+        {
+            try
+            {
+                await _developerService.UpdateDeveloperAsync(dto);
+                return NoContent();
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
             }
         }
 
@@ -64,7 +92,5 @@ namespace GameLibrary.API.Controllers
                 return NotFound(ex.Message);
             }
         }
-
-
     }
 }

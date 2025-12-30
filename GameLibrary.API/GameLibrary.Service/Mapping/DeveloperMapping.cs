@@ -29,5 +29,17 @@ namespace GameLibrary.Service.Mapping
                 Country = dto.Country
             };
         }
+
+        public static Developer ToEntity(this UpdateDeveloperDto dto)
+        {
+            return new Developer
+            {
+                Id = dto.Id,
+                Name = dto.Name,
+                Country = dto.Country,
+                FoundedDate = dto.FoundedDate
+            };
+        }
+
     }
 }

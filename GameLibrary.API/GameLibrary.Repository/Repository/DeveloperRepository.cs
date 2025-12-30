@@ -3,6 +3,7 @@ using GameLibrary.Repository.Context;
 using GameLibrary.Repository.Repositories;
 using GameLibrary.Repository.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.SqlClient; 
 
 namespace GameLibrary.Repository.Repository
 {
@@ -23,6 +24,17 @@ namespace GameLibrary.Repository.Repository
             return await GetQueryable(includeDeleted)
                 .Include(d => d.Games)
                 .FirstOrDefaultAsync(d => d.Id == id);
+        }
+
+        public async Task<IEnumerable<Developer>> SP_GetDevelopersByCountryAsync(string country)
+        {
+            var countryParam = new SqlParameter("@Country", country);
+
+            return await _dbSet
+                .FromSqlRaw("EXEC sp_GetDevelopersByCountry @Country", countryParam)
+                .IgnoreQueryFilters()
+                .AsNoTracking()
+                .ToListAsync();
         }
     }
 }

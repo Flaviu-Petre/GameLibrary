@@ -43,5 +43,13 @@ namespace GameLibrary.Domain.Domains
             await _developerRepository.SoftDeleteAsync(id);
             await _developerRepository.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<Developer>> SP_GetDevelopersByCountryAsync(string country)
+        {
+            if (string.IsNullOrEmpty(country))
+                throw new ArgumentException("Country cannot be empty");
+
+            return await _developerRepository.SP_GetDevelopersByCountryAsync(country);
+        }
     }
 }
