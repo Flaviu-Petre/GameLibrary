@@ -11,7 +11,7 @@ public static class DIConfig
         services.AddScoped<IDeveloperDomain, DeveloperDomain>();
         services.AddScoped<IGenreDomain, GenreDomain>();
         services.AddScoped<IPlatformDomain, PlatformDomain>();
-
+        services.AddScoped<IPublisherDomain, PublisherDomain>();
         return services;
     }
 }

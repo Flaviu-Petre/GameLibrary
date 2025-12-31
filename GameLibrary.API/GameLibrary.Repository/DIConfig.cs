@@ -18,7 +18,7 @@ public static class DIConfig
         services.AddScoped<IDeveloperRepository, DeveloperRepository>();
         services.AddScoped<IGenreRepository, GenreRepository>();
         services.AddScoped<IPlatformRepository, PlatformRepository>();
-
+        services.AddScoped<IPublisherRepository, PublisherRepository>();
         return services;
     }
 }
