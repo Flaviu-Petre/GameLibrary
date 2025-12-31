@@ -1,4 +1,5 @@
 ﻿using GameLibrary.Domain.Domains.Interface;
+using GameLibrary.Entity.Entities;
 using GameLibrary.Service.Dtos.Developer;
 using GameLibrary.Service.Mapping;
 using GameLibrary.Service.Services.Interface;
@@ -61,20 +62,23 @@ namespace GameLibrary.Service.Services
             return developers.Select(d => d.ToDto());
         }
 
-        public Task UpdateDeveloperAsync(UpdateDeveloperDto dto)
+        public async Task UpdateDeveloperAsync(int id, UpdateDeveloperDto dto)
         {
-            if(dto.Name == null)
+            if (id <= 0)
+                throw new ArgumentException("Invalid developer ID");
+
+            if (string.IsNullOrEmpty(dto.Name))
                 throw new ArgumentException("Developer name is required");
 
-            if(dto.FoundedDate == null)
-                throw new ArgumentException("Founded date is required");
+            var developer = new Developer
+            {
+                Id = id,
+                Name = dto.Name,
+                Country = dto.Country,
+                FoundedDate = dto.FoundedDate
+            };
 
-            if(dto.Country == null)
-                throw new ArgumentException("Country is required");
-
-            var developer = dto.ToEntity();
-
-            return _developerDomain.UpdateDeveloperAsync(developer);
+            await _developerDomain.UpdateDeveloperAsync(developer);
         }
 
         public async Task<IEnumerable<DeveloperDto>> SP_GetDevelopersPaginatedAsync(int pageNumber, int pageSize)

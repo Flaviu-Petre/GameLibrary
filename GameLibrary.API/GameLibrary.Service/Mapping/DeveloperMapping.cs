@@ -34,7 +34,6 @@ namespace GameLibrary.Service.Mapping
         {
             return new Developer
             {
-                Id = dto.Id,
                 Name = dto.Name,
                 Country = dto.Country,
                 FoundedDate = dto.FoundedDate

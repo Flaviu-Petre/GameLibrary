@@ -10,7 +10,7 @@ namespace GameLibrary.Service.Services.Interface
         Task<DeveloperDto> CreateDeveloperAsync(CreateDeveloperDto dto);
         Task<DeveloperDto> GetDeveloperByNameAsync(string name);
         Task DeleteDeveloperAsync(int id);
-        Task UpdateDeveloperAsync(UpdateDeveloperDto dto);
+        Task UpdateDeveloperAsync(int id, UpdateDeveloperDto dto);
         Task<IEnumerable<DeveloperDto>> SP_GetDevelopersByCountryAsync(string country);
         Task<IEnumerable<DeveloperDto>> SP_GetDevelopersPaginatedAsync(int pageNumber, int pageSize);
 

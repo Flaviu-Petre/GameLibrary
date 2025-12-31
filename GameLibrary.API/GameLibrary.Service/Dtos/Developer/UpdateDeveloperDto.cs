@@ -8,7 +8,6 @@ namespace GameLibrary.Service.Dtos.Developer
 {
     public class UpdateDeveloperDto
     {
-        public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Country { get; set; } = string.Empty;
         public DateTime FoundedDate { get; set; }

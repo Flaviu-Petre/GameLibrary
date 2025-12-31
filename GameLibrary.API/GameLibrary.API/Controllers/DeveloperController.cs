@@ -65,12 +65,12 @@ namespace GameLibrary.API.Controllers
             }
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update([FromBody] UpdateDeveloperDto dto)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateDeveloperDto dto)
         {
             try
             {
-                await _developerService.UpdateDeveloperAsync(dto);
+                await _developerService.UpdateDeveloperAsync(id, dto);
                 return NoContent();
             }
             catch (ArgumentException ex)
