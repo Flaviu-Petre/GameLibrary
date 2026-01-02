@@ -26,7 +26,8 @@ namespace GameLibrary.Service.Mapping
             return new Developer
             {
                 Name = dto.Name,
-                Country = dto.Country
+                Country = dto.Country,
+                FoundedDate = dto.FoundedDate
             };
         }
 

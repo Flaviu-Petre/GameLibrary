@@ -10,5 +10,6 @@ namespace GameLibrary.Service.Dtos.Developer
     {
         public string? Name { get; set; }
         public string? Country { get; set; }
+        public DateTime FoundedDate { get; set; }
     }
 }
