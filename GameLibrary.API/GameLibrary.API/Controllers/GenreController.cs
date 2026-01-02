@@ -53,6 +53,20 @@ namespace GameLibrary.API.Controllers
             return Ok(result);
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateGenreById(int id, [FromBody] UpdateGenreDto dto)
+        {
+            try
+            {
+                await _genreService.UpdateGenreAsync(id, dto);
+                return NoContent();
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGenreById(int id)
         {

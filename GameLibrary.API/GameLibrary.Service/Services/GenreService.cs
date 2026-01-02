@@ -31,9 +31,9 @@ namespace GameLibrary.Service.Services
             if (string.IsNullOrEmpty(dto.Name))
                 throw new ArgumentException("Genre name is required");
 
-            var Genre = dto.ToEntity();
-            await _genreDomain.CreateGenreAsync(Genre);
-            return Genre.ToDto();
+            var genre = dto.ToEntity();
+            await _genreDomain.CreateGenreAsync(genre);
+            return genre.ToDto();
         }
 
         public async Task<GenreDto?> GetGenreByNameAsync(string name)
@@ -45,6 +45,20 @@ namespace GameLibrary.Service.Services
             return genre?.ToDto();
         }
 
+        public async Task<GenreDto> UpdateGenreAsync(int id, UpdateGenreDto dto)
+        {
+            if (id < 0)
+                throw new ArgumentException("Invalid id");
+            if (string.IsNullOrEmpty(dto.Name))
+                throw new ArgumentException("Genre name is required");
+            if (string.IsNullOrEmpty(dto.Description))
+                throw new ArgumentException("Genre description is required");
+
+            var genre = dto.ToEntity();
+            genre.Id = id;
+            await _genreDomain.UpdateGenreAsync(genre);
+            return genre.ToDto();
+        }
 
         public async Task DeleteGenreByIdAsync(int id)
         {

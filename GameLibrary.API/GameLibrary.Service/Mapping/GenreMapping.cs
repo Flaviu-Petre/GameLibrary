@@ -29,5 +29,14 @@ namespace GameLibrary.Service.Mapping
                 Description = dto.Description,
             };
         }
+
+        public static Genre ToEntity(this UpdateGenreDto dto)
+        {
+            return new Genre
+            {
+                Name = dto.Name,
+                Description = dto.Description,
+            };
+        }
     }
 }
