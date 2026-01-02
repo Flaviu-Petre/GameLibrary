@@ -12,15 +12,8 @@ namespace GameLibrary.API.Controllers
         [HttpGet("free-games")]
         public async Task<IActionResult> GetFreeGames()
         {
-            try
-            {
-                var result = await _freeToGameService.GetFreeGamesAsync();
-                return Ok(result);
-            }
-            catch (HttpRequestException ex)
-            {
-                return StatusCode(502, $"Error fetching from FreeToGame API: {ex.Message}");
-            }
+            var result = await _freeToGameService.GetFreeGamesAsync();
+            return Ok(result);
         }
     }
 }

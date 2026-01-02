@@ -15,15 +15,8 @@ namespace GameLibrary.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateGenre([FromBody] CreateGenreDto payload)
         {
-            try
-            {
-                var result = await _genreService.CreateGenreAsync(payload);
-                return Ok(result);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+             var result = await _genreService.CreateGenreAsync(payload);
+             return Ok(result);
         }
 
         [HttpGet]
@@ -56,29 +49,15 @@ namespace GameLibrary.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateGenreById(int id, [FromBody] UpdateGenreDto dto)
         {
-            try
-            {
-                await _genreService.UpdateGenreAsync(id, dto);
-                return NoContent();
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            await _genreService.UpdateGenreAsync(id, dto);
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGenreById(int id)
         {
-            try
-            {
-                await _genreService.DeleteGenreByIdAsync(id);
-                return NoContent();
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            await _genreService.DeleteGenreByIdAsync(id);
+            return NoContent();
         }
     }
 }

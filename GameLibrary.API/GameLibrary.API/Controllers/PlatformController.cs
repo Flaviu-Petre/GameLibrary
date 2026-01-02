@@ -38,43 +38,25 @@ namespace GameLibrary.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreatePlatform([FromBody] CreatePlatformDto dto)
         {
-            try
-            {
-                var platform = await _platformService.CreatePlatformAsync(dto);
-                return CreatedAtAction(nameof(GetPlatformById), new { id = platform.Id }, platform);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+
+             var platform = await _platformService.CreatePlatformAsync(dto);
+             return CreatedAtAction(nameof(GetPlatformById), new { id = platform.Id }, platform);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePlatform(int id, [FromBody] UpdatePlatformDto dto)
         {
-            try
-            {
-                await _platformService.UpdatePlatformAsync(id, dto);
-                return NoContent();
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex.Message);
-            }
+
+             await _platformService.UpdatePlatformAsync(id, dto);
+             return NoContent();
+
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePlatform(int id)
         {
-            try
-            {
-                await _platformService.DeletePlatformAsync(id);
-                return NoContent();
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex.Message);
-            }
+             await _platformService.DeletePlatformAsync(id);
+             return NoContent();
         }
     }
 }

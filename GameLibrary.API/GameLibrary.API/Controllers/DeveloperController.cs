@@ -40,57 +40,29 @@ namespace GameLibrary.API.Controllers
         [HttpGet("getByCountry/{country}")]
         public async Task<ActionResult<IEnumerable<DeveloperDto>>> SP_GetByCountry(string country)
         {
-            try
-            {
-                var developers = await _developerService.SP_GetDevelopersByCountryAsync(country);
-                return Ok(developers);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var developers = await _developerService.SP_GetDevelopersByCountryAsync(country);
+            return Ok(developers);
         }
 
         [HttpPost]
         public async Task<ActionResult<DeveloperDto>> Create([FromBody] CreateDeveloperDto dto)
         {
-            try
-            {
-                var developer = await _developerService.CreateDeveloperAsync(dto);
-                return CreatedAtAction(nameof(GetById), new { id = developer.Id }, developer);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var developer = await _developerService.CreateDeveloperAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id = developer.Id }, developer);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] UpdateDeveloperDto dto)
         {
-            try
-            {
-                await _developerService.UpdateDeveloperAsync(id, dto);
-                return NoContent();
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            await _developerService.UpdateDeveloperAsync(id, dto);
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            try
-            {
-                await _developerService.DeleteDeveloperAsync(id);
-                return NoContent();
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            await _developerService.DeleteDeveloperAsync(id);
+            return NoContent();
         }
 
         [HttpGet("sp/paginated")]

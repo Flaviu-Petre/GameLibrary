@@ -54,9 +54,6 @@ public class BaseRepository<T> : IRepository<T> where T : BaseEntity
         var existingEntity = await _dbSet.FindAsync(entity.Id);
         if (existingEntity == null)
         {
-            LoggerSingleton.GetInstance().Log(
-                $"Cannot update {typeof(T).Name}: entity with ID {entity.Id} not found.", 
-                LogLevel.Error);
             throw new EntityNotFoundException(typeof(T).Name, entity.Id);
         }
 
@@ -73,9 +70,6 @@ public class BaseRepository<T> : IRepository<T> where T : BaseEntity
         var entity = await _dbSet.FindAsync(id);
         if (entity == null)
         {
-            LoggerSingleton.GetInstance().Log(
-                $"Cannot delete {typeof(T).Name}: entity with ID {id} not found.", 
-                LogLevel.Error);
             throw new EntityNotFoundException(typeof(T).Name, id);
         }
 
@@ -91,9 +85,6 @@ public class BaseRepository<T> : IRepository<T> where T : BaseEntity
         var entity = await _dbSet.FindAsync(id);
         if (entity == null)
         {
-            LoggerSingleton.GetInstance().Log(
-                $"Cannot soft delete {typeof(T).Name}: entity with ID {id} not found.", 
-                LogLevel.Error);
             throw new EntityNotFoundException(typeof(T).Name, id);
         }
 

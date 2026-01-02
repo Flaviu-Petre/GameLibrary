@@ -40,57 +40,29 @@ namespace GameLibrary.API.Controllers
         [HttpPost]
         public async Task<ActionResult<UserDto>> Create([FromBody] CreateUserDto dto)
         {
-            try
-            {
-                var user = await _userService.CreateUserAsync(dto);
-                return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var user = await _userService.CreateUserAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            try
-            {
-                await _userService.DeleteUserAsync(id);
-                return NoContent();
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            await _userService.DeleteUserAsync(id);
+            return NoContent();
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProfile(int id, [FromBody] UpdateUserDto dto)
         {
-            try
-            {
-                await _userService.UpdateUserProfileAsync(id, dto);
-                return NoContent();
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            await _userService.UpdateUserProfileAsync(id, dto);
+            return NoContent();
         }
 
         [HttpPut("{id}/password")]
         public async Task<IActionResult> ChangePassword(int id, [FromBody] ChangePasswordDto dto)
         {
-            try
-            {
-                await _userService.ChangePasswordAsync(id, dto);
-                return NoContent();
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            await _userService.ChangePasswordAsync(id, dto);
+            return NoContent();
         }
 
     }

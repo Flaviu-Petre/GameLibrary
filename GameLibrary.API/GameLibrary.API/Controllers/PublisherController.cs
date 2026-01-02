@@ -30,15 +30,8 @@ namespace GameLibrary.API.Controllers
         [HttpPost]
         public async Task<ActionResult<PublisherDto>> Create([FromBody] CreatePublisherDto dto)
         {
-            try
-            {
-                var publisher = await _publisherService.CreatePublisherAsync(dto);
-                return CreatedAtAction(nameof(GetById), new { id = publisher.Id }, publisher);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var publisher = await _publisherService.CreatePublisherAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id = publisher.Id }, publisher);
         }
 
         [HttpGet("getByName/{name}")]
@@ -55,29 +48,15 @@ namespace GameLibrary.API.Controllers
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] UpdatePublisherDto dto)
         {
-            try
-            {
-                await _publisherService.UpdatePublisherAsync(dto);
-                return NoContent();
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            await _publisherService.UpdatePublisherAsync(dto);
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            try
-            {
-                await _publisherService.DeletePublisherAsync(id);
-                return NoContent();
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            await _publisherService.DeletePublisherAsync(id);
+            return NoContent();
         }
     }
 }
