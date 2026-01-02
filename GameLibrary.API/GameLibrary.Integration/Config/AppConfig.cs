@@ -9,6 +9,7 @@ public class AppConfig
     private static readonly object _lock = new();
     
     public ConnectionStringsSettings? ConnectionStrings { get; private set; }
+    public string? FreeToGameApiBaseUrl { get; private set; }
     
     private AppConfig() { }
     
@@ -31,6 +32,7 @@ public class AppConfig
     {
         ConnectionStrings = configuration.GetSection("ConnectionStrings")
             .Get<ConnectionStringsSettings>();
+        FreeToGameApiBaseUrl = configuration.GetValue<string>("FreeToGameApiBaseUrl");
     }
     
     public string? GetConnectionString(string name = "DefaultConnection")

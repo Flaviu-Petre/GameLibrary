@@ -2,7 +2,8 @@ using GameLibrary.Domain;
 using GameLibrary.Integration.Config;
 using GameLibrary.Repository;
 using GameLibrary.Service;
-using Microsoft.Identity.Client;
+using GameLibrary.Service.Services;
+using GameLibrary.Service.Services.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,14 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddRepositories(connectionString);
 builder.Services.AddDomains();
 builder.Services.AddServices();
+builder.Services.AddHttpClient<IFreeToGameService, FreeToGameService>(client =>
+{
+    var baseUrl = AppConfig.Instance.FreeToGameApiBaseUrl;
+    if (string.IsNullOrWhiteSpace(baseUrl))
+        throw new InvalidOperationException("FreeToGameApiBaseUrl is not configured.");
+    client.BaseAddress = new Uri(baseUrl);
+}
+);
 
 var app = builder.Build();
 
