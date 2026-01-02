@@ -14,6 +14,6 @@ namespace GameLibrary.Service.Dtos.Game
         public int? DeveloperId { get; set; }
         public int? PublisherId { get; set; }
         public int? PlatformId { get; set; }
-        public ICollection<int> GenresId { get; set; } = new List<int>();
+        public ICollection<int> GenreIds { get; set; } = new List<int>();
     }
 }

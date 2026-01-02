@@ -12,11 +12,7 @@ namespace GameLibrary.Service.Mapping
             {
                 Title = dto.Title,
                 Description = dto.Description,
-                ReleaseDate = dto.ReleaseDate,
-                DeveloperId = dto.DeveloperId,
-                PublisherId = dto.PublisherId,
-                PlatformId = dto.PlatformId,
-                GenresId = dto.GenresId
+                ReleaseDate = dto.ReleaseDate
             };
         }
 

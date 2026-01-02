@@ -1,4 +1,5 @@
-﻿using GameLibrary.Domain.Domains.Interface;
+﻿using GameLibrary.Domain.Domains;
+using GameLibrary.Domain.Domains.Interface;
 using GameLibrary.Entity.Entities;
 using GameLibrary.Service.Dtos.Game;
 using GameLibrary.Service.Mapping;
@@ -20,37 +21,44 @@ namespace GameLibrary.Service.Services
             {
                 throw new ArgumentException("Game description cannot be null or empty.");
             }
-            if (payload.DeveloperId < 0)
+            if (!payload.DeveloperId.HasValue || payload.DeveloperId.Value < 0)
             {
                 throw new ArgumentException("Game developer index is invalid.");
             }
-            if (payload.PublisherId < 0)
+            if (!payload.PublisherId.HasValue || payload.PublisherId.Value < 0)
             {
                 throw new ArgumentException("Game publisher index is invalid.");
             }
-            if (payload.PlatformId < 0)
+            if (!payload.PlatformId.HasValue || payload.PlatformId.Value < 0)
             {
                 throw new ArgumentException("Game platform index is invalid.");
             }
-            if (payload.GenresId.Count == 0)
+            if (payload.GenreIds.Count == 0)
             {
                 throw new ArgumentException("Game generes indexes cannot be null or empty.");
             }
-            if (payload.GenresId.Any(id => id < 0))
+            if (payload.GenreIds.Any(id => id < 0))
             {
                 throw new ArgumentException("One or more game genre indexes are invalid.");
             }
 
             Game entity = payload.ToEntity();
 
-            await _gameDomain.CreateGameAsync(entity);
+            await _gameDomain.CreateGameAsync(
+                entity,
+                payload.DeveloperId.Value,
+                payload.PublisherId.Value,
+                payload.PlatformId.Value,
+                payload.GenreIds
+            );
 
             return entity.ToDto();
         }
 
-        public Task<IEnumerable<GameDto>> GetAllGamesAsync()
+        public async Task<IEnumerable<GameDto>> GetAllGamesAsync()
         {
-            throw new NotImplementedException();
+            var games = await _gameDomain.GetAllGamesAsync();
+            return games.Select(g => g.ToDto());
         }
     }
 }

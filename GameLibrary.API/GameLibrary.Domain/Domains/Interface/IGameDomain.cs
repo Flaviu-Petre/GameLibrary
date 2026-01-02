@@ -9,7 +9,7 @@ namespace GameLibrary.Domain.Domains.Interface
 {
     public interface IGameDomain
     {
-        Task CreateGameAsync(Game genre);
+        Task CreateGameAsync(Game game, int developerId, int publisherId, int platformId, ICollection<int> genreIds);
         Task<IEnumerable<Game?>> GetAllGamesAsync();
     }
 }
