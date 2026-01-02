@@ -10,6 +10,7 @@ public static class DIConfig
     {
         services.AddScoped<IDeveloperService, DeveloperService>();
         services.AddScoped<IGenreService, GenreService>();
+        services.AddScoped<IGameService, GameService>();
         services.AddScoped<IPlatformService, PlatformService>();
         services.AddScoped<IPublisherService, PublisherService>();
         services.AddScoped<IUserService, UserService>();

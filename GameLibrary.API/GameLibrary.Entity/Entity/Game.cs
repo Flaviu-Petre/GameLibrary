@@ -12,7 +12,9 @@ public class Game : BaseEntity
     public int? DeveloperId { get; set; }
     public int? PublisherId { get; set; }
     public int? PlatformId { get; set; }
-    
+    public ICollection<int> GenresId { get; set; } = new List<int>();
+    public ICollection<int> UsersId { get; set; } = new List<int>();
+
     // Navigation properties
     public virtual Developer? Developer { get; set; }
     public virtual Publisher? Publisher { get; set; }

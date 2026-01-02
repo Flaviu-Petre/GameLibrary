@@ -10,6 +10,7 @@ public static class DIConfig
     {
         services.AddScoped<IDeveloperDomain, DeveloperDomain>();
         services.AddScoped<IGenreDomain, GenreDomain>();
+        services.AddScoped<IGameDomain, GameDomain>();
         services.AddScoped<IPlatformDomain, PlatformDomain>();
         services.AddScoped<IPublisherDomain, PublisherDomain>();
         services.AddScoped<IUserDomain, UserDomain>();

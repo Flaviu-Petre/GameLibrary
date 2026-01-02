@@ -17,6 +17,7 @@ public static class DIConfig
 
         services.AddScoped<IDeveloperRepository, DeveloperRepository>();
         services.AddScoped<IGenreRepository, GenreRepository>();
+        services.AddScoped<IGameRepository, GameRepository>();
         services.AddScoped<IPlatformRepository, PlatformRepository>();
         services.AddScoped<IPublisherRepository, PublisherRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
