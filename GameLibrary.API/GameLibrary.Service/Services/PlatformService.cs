@@ -1,4 +1,5 @@
 ﻿using GameLibrary.Domain.Domains.Interface;
+using GameLibrary.Entity.Entities;
 using GameLibrary.Service.Dtos.Platform;
 using GameLibrary.Service.Mapping;
 using GameLibrary.Service.Services.Interface;
@@ -40,6 +41,24 @@ namespace GameLibrary.Service.Services
                 throw new ArgumentException("Platform name is required");
             var platform = await _platformDomain.GetPlatformByNameAsync(name);
             return platform?.ToDto();
+        }
+
+        public async Task UpdatePlatformAsync(int id, UpdatePlatformDto dto)
+        {
+            if (id < 0)
+                throw new ArgumentException("Invalid id");
+            if (string.IsNullOrEmpty(dto.Name))
+                throw new ArgumentException("Platform name is required");
+
+            var platform = new Platform
+            {
+                Id = id,
+                Name = dto.Name,
+                Manufacturer = dto.Manufacturer,
+                ReleaseYear = dto.ReleaseYear,
+            };
+
+            await _platformDomain.UpdatePlatformAsync(platform);
         }
 
         public async Task DeletePlatformAsync(int id)

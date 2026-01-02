@@ -49,6 +49,20 @@ namespace GameLibrary.API.Controllers
             }
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdatePlatform(int id, [FromBody] UpdatePlatformDto dto)
+        {
+            try
+            {
+                await _platformService.UpdatePlatformAsync(id, dto);
+                return NoContent();
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePlatform(int id)
         {

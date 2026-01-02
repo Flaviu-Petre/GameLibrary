@@ -25,5 +25,16 @@ namespace GameLibrary.Service.Mapping
                 ReleaseYear = platformDto.ReleaseYear
             };
         }
+
+        public static Platform ToEntity(this UpdatePlatformDto platformDto)
+        {
+            return new Platform
+            {
+                Name = platformDto.Name,
+                Manufacturer = platformDto.Manufacturer,
+                ReleaseYear = platformDto.ReleaseYear
+            };
+        }
+
     }
 }
