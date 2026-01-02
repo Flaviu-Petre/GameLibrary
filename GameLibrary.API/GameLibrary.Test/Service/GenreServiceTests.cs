@@ -5,7 +5,7 @@ using GameLibrary.Service.Services;
 using Moq;
 using Xunit;
 
-namespace GameLibrary.Test
+namespace GameLibrary.Test.Service
 {
     public class GenreServiceTests
     {
