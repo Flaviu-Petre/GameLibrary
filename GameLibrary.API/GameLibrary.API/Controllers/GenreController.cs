@@ -8,7 +8,7 @@ namespace GameLibrary.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class GenresController(IGenreService genreService) : ControllerBase
+    public class GenreController(IGenreService genreService) : ControllerBase
     {
         private readonly IGenreService _genreService = genreService;
 

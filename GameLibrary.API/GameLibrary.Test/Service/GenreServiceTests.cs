@@ -48,5 +48,65 @@ namespace GameLibrary.Test.Service
             await Assert.ThrowsAsync<ArgumentException>(() =>
                 _service.CreateGenreAsync(dto));
         }
+
+        [Fact]
+        public async Task GetAllGenresAsync_ShouldMapToDtos()
+        {
+            // arrange
+            var genres = new List<Genre> { new Genre { Id = 1, Name = "FPS" } };
+            _mockDomain.Setup(d => d.GetAllGenresAsync()).ReturnsAsync(genres);
+
+            // act
+            var result = await _service.GetAllGenresAsync();
+
+            // assert
+            Assert.Single(result);
+            Assert.Equal("FPS", result.First().Name);
+        }
+
+        [Fact]
+        public async Task UpdateGenreAsync_ShouldThrowException_WhenDescriptionIsEmpty()
+        {
+            // arrange
+            var updateDto = new UpdateGenreDto { Name = "Name", Description = "" };
+
+            // act & assert
+            await Assert.ThrowsAsync<ArgumentException>(() =>
+                _service.UpdateGenreAsync(1, updateDto));
+        }
+
+        [Fact]
+        public async Task GetGenreByIdAsync_ReturnsNull_WhenIdIsNegative()
+        {
+            // act
+            var result = await _service.GetGenreByIdAsync(-5);
+
+            // assert
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async Task GetGenreByNameAsync_Throws_WhenNameIsNull()
+        {
+            // act & assert
+            await Assert.ThrowsAsync<ArgumentException>(() => _service.GetGenreByNameAsync(null));
+        }
+
+        [Fact]
+        public async Task UpdateGenreAsync_Throws_WhenIdIsNegative()
+        {
+            // arrange
+            var dto = new UpdateGenreDto { Name = "RPG", Description = "Desc" };
+
+            // act & assert
+            await Assert.ThrowsAsync<ArgumentException>(() => _service.UpdateGenreAsync(-1, dto));
+        }
+
+        [Fact]
+        public async Task DeleteGenreByIdAsync_Throws_WhenIdIsZero()
+        {
+            // act & assert
+            await Assert.ThrowsAsync<ArgumentException>(() => _service.DeleteGenreByIdAsync(0));
+        }
     }
 }

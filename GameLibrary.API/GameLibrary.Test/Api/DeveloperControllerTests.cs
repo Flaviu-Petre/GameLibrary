@@ -7,12 +7,12 @@ using GameLibrary.Service.Dtos.Developer;
 
 namespace GameLibrary.Test.Api
 {
-    public class DevelopersControllerTests
+    public class DeveloperControllerTests
     {
         private readonly Mock<IDeveloperService> _mockService;
         private readonly DevelopersController _controller;
 
-        public DevelopersControllerTests()
+        public DeveloperControllerTests()
         {
             _mockService = new Mock<IDeveloperService>();
             _controller = new DevelopersController(_mockService.Object);
