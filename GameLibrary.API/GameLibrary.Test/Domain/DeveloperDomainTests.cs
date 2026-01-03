@@ -31,5 +31,89 @@ namespace GameLibrary.Test.Domain
             _mockRepo.Verify(r => r.SaveChangesAsync(), Times.Once);
         }
 
+        [Theory]
+        [InlineData("")]
+        [InlineData(null)]
+        public async Task AddDeveloperAsync_ShouldThrowException_WhenNameIsInvalid(string? name)
+        {
+            // Arrange
+            var dev = new Developer { Name = name };
+
+            // Act & Assert 
+            await Assert.ThrowsAsync<ArgumentException>(() => _domain.AddDeveloperAsync(dev));
+        }
+
+        [Fact]
+        public async Task GetAllDevelopersAsync_ShouldReturnCollection()
+        {
+            // Arrange
+            var developers = new List<Developer> { new Developer { Name = "Dev 1" } };
+            _mockRepo.Setup(r => r.GetAllAsync(false)).ReturnsAsync(developers);
+
+            // Act
+            var result = await _domain.GetAllDevelopersAsync();
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Single(result);
+            _mockRepo.Verify(r => r.GetAllAsync(false), Times.Once);
+        }
+
+        [Fact]
+        public async Task GetDeveloperByIdAsync_ShouldReturnDeveloper()
+        {
+            // Arrange
+            var developer = new Developer { Id = 1, Name = "Dev 1" };
+            _mockRepo.Setup(r => r.GetByIdAsync(1, false)).ReturnsAsync(developer);
+
+            // Act
+            var result = await _domain.GetDeveloperByIdAsync(1);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(1, result.Id);
+            _mockRepo.Verify(r => r.GetByIdAsync(1, false), Times.Once);
+        }
+
+        [Fact]
+        public async Task GetDeveloperByNameAsync_ShouldReturnDeveloper()
+        {
+            // Arrange
+            var developer = new Developer { Name = "Ubisoft" };
+            _mockRepo.Setup(r => r.GetByNameAsync("Ubisoft")).ReturnsAsync(developer);
+
+            // Act
+            var result = await _domain.GetDeveloperByNameAsync("Ubisoft");
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal("Ubisoft", result.Name);
+            _mockRepo.Verify(r => r.GetByNameAsync("Ubisoft"), Times.Once);
+        }
+
+        [Fact]
+        public async Task UpdateDeveloperAsync_ShouldCallRepo()
+        {
+            // Arrange
+            var dev = new Developer { Id = 1, Name = "Updated Name" };
+
+            // Act
+            await _domain.UpdateDeveloperAsync(dev);
+
+            // Assert
+            _mockRepo.Verify(r => r.UpdateAsync(dev), Times.Once);
+            _mockRepo.Verify(r => r.SaveChangesAsync(), Times.Once);
+        }
+
+        [Fact]
+        public async Task DeleteDeveloperAsync_ShouldCallSoftDelete()
+        {
+            // Act
+            await _domain.DeleteDeveloperAsync(1);
+
+            // Assert
+            _mockRepo.Verify(r => r.SoftDeleteAsync(1), Times.Once);
+            _mockRepo.Verify(r => r.SaveChangesAsync(), Times.Once);
+        }
     }
 }
