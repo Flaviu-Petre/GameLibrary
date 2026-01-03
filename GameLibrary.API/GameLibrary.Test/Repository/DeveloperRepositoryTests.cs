@@ -34,5 +34,48 @@ namespace GameLibrary.Test.Repository
             Assert.NotNull(result);
             Assert.Equal("France", result.Country);
         }
+
+        [Fact]
+        public async Task GetByNameAsync_ShouldReturnNull_WhenNameDoesNotExist()
+        {
+            // Arrange
+            using var context = GetContext();
+            var repo = new DeveloperRepository(context);
+
+            // Act
+            var result = await repo.GetByNameAsync("NonExistentDeveloper");
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async Task GetByIdAsync_ShouldIncludeGames_WhenDeveloperExists()
+        {
+            // Arrange
+            using var context = GetContext();
+            var developer = new Developer { Name = "FromSoftware", Country = "Japan" };
+
+            developer.Games.Add(new Game
+            {
+                Title = "Elden Ring",
+                ReleaseDate = DateTime.UtcNow,
+                Description = "Open world RPG"
+            });
+
+            context.Developers.Add(developer);
+            await context.SaveChangesAsync();
+
+            var repo = new DeveloperRepository(context);
+
+            // Act
+            var result = await repo.GetByIdAsync(developer.Id);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.NotNull(result.Games);
+            Assert.Single(result.Games);
+            Assert.Equal("Elden Ring", result.Games.First().Title);
+        }
     }
 }
