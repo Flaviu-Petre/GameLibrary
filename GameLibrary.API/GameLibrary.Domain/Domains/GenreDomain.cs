@@ -26,7 +26,7 @@ namespace GameLibrary.Domain.Domains
         public async Task CreateGenreAsync(Genre genre)
         {
             if (string.IsNullOrEmpty(genre.Name))
-                throw new ArgumentException("Developer name cannot be empty");
+                throw new ArgumentException("Genre name cannot be empty");
 
             await _genreRepository.AddAsync(genre);
             await _genreRepository.SaveChangesAsync();
