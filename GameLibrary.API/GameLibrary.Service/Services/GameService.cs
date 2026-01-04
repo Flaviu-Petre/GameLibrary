@@ -54,11 +54,58 @@ namespace GameLibrary.Service.Services
 
             return entity.ToDto();
         }
-
         public async Task<IEnumerable<GameDto>> GetAllGamesAsync()
         {
             var games = await _gameDomain.GetAllGamesAsync();
             return games.Select(g => g.ToDto());
+        }
+        public async Task DeleteGameByIdAsync(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException("Invalid game ID.");
+            }
+
+            await _gameDomain.DeleteGameAsync(id);
+        }
+        public async Task UpdateGameAsync(int id, UpdateGameDto dto)
+        {
+            if (id <= 0)
+                throw new ArgumentException("Invalid game ID.");
+
+            if (string.IsNullOrWhiteSpace(dto.Title))
+                throw new ArgumentException("Title required.");
+
+            var gameInfo = dto.ToEntity();
+
+            await _gameDomain.UpdateGameAsync(id, gameInfo, dto.GenreIds);
+        }
+        public async Task<GameDto?> GetGameByIdAsync(int id)
+        {
+            var game = await _gameDomain.GetGameByIdAsync(id);
+
+            if (game == null)
+            {
+                return null;
+            }
+
+            return game.ToDto();
+        }
+        public async Task<GameDto?> GetGameByNameAsync(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("Name cannot be empty.");
+            }
+
+            var game = await _gameDomain.GetGameByTitleAsync(name);
+
+            if (game == null)
+            {
+                return null;
+            }
+
+            return game.ToDto();
         }
     }
 }

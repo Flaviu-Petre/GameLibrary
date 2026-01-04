@@ -31,5 +31,17 @@ namespace GameLibrary.Service.Mapping
                 Genres = entity.Genres.Select(g => g.Name ?? string.Empty).ToList()
             };
         }
+        public static Game ToEntity(this UpdateGameDto dto)
+        {
+            return new Game
+            {
+                Title = dto.Title,
+                Description = dto.Description,
+                ReleaseDate = dto.ReleaseDate,
+                DeveloperId = dto.DeveloperId,
+                PublisherId = dto.PublisherId,
+                PlatformId = dto.PlatformId
+            };
+        }
     }
 }
