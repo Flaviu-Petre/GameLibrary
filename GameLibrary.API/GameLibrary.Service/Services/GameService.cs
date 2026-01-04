@@ -54,11 +54,19 @@ namespace GameLibrary.Service.Services
 
             return entity.ToDto();
         }
-
         public async Task<IEnumerable<GameDto>> GetAllGamesAsync()
         {
             var games = await _gameDomain.GetAllGamesAsync();
             return games.Select(g => g.ToDto());
+        }
+        public async Task DeleteGameByIdAsync(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException("Invalid game ID.");
+            }
+
+            await _gameDomain.DeleteGameAsync(id);
         }
     }
 }

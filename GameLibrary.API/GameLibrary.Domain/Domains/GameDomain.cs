@@ -61,10 +61,15 @@ namespace GameLibrary.Domain.Domains
             await _gameRepository.AddAsync(game);
             await _gameRepository.SaveChangesAsync();
         }
-
         public async Task<IEnumerable<Game?>> GetAllGamesAsync()
         {
             return await _gameRepository.GetAllAsync();
+        }
+        public async Task DeleteGameAsync(int id)
+        {
+            await _gameRepository.SoftDeleteAsync(id);
+
+            await _gameRepository.SaveChangesAsync();
         }
     }
 }

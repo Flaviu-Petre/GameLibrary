@@ -1,4 +1,5 @@
-﻿using GameLibrary.Service.Dtos.Game;
+﻿using GameLibrary.Integration.Exceptions;
+using GameLibrary.Service.Dtos.Game;
 using GameLibrary.Service.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,7 +31,27 @@ namespace GameLibrary.API.Controllers
             var result = await _gameService.GetAllGamesAsync();
             return Ok(result);
         }
-
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteGameById(int id)
+        {
+            try
+            {
+                await _gameService.DeleteGameByIdAsync(id);
+                return NoContent();
+            }
+            catch (EntityNotFoundException ex) // Aceasta vine din BaseRepository
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex) // Aceasta vine din validarea Service-ului
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
+        }
         //[HttpGet("{id}")]
         //public async Task<IActionResult> GetGameById(int id)
         //{
