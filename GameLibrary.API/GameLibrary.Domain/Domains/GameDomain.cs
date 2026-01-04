@@ -125,5 +125,9 @@ namespace GameLibrary.Domain.Domains
             await _gameRepository.UpdateAsync(existingGame);
             await _gameRepository.SaveChangesAsync();
         }
+        public async Task<Game?> GetGameByIdAsync(int id)
+        {
+            return await _gameRepository.GetByIdAsync(id);
+        }
     }
 }

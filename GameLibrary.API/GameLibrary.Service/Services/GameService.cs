@@ -80,5 +80,16 @@ namespace GameLibrary.Service.Services
 
             await _gameDomain.UpdateGameAsync(id, gameInfo, dto.GenreIds);
         }
+        public async Task<GameDto?> GetGameByIdAsync(int id)
+        {
+            var game = await _gameDomain.GetGameByIdAsync(id);
+
+            if (game == null)
+            {
+                return null;
+            }
+
+            return game.ToDto();
+        }
     }
 }

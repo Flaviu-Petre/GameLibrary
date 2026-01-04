@@ -13,5 +13,6 @@ namespace GameLibrary.Service.Services.Interface
         Task<IEnumerable<GameDto>> GetAllGamesAsync();
         Task DeleteGameByIdAsync(int id);
         Task UpdateGameAsync(int id, UpdateGameDto dto);
+        Task<GameDto?> GetGameByIdAsync(int id);
     }
 }

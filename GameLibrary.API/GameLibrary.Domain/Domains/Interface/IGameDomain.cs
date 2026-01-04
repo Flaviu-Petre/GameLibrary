@@ -13,5 +13,6 @@ namespace GameLibrary.Domain.Domains.Interface
         Task<IEnumerable<Game?>> GetAllGamesAsync();
         Task DeleteGameAsync(int id);
         Task UpdateGameAsync(int id, Game gameUpdateInfo, ICollection<int> genreIds);
+        Task<Game?> GetGameByIdAsync(int id);
     }
 }

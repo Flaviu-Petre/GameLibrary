@@ -73,6 +73,16 @@ namespace GameLibrary.API.Controllers
                 return StatusCode(500, "An error occurred while updating the game.");
             }
         }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetGameById(int id)
+        {
+            var result = await _gameService.GetGameByIdAsync(id);
+
+            if (result == null)
+                return NotFound($"Game with ID {id} not found.");
+
+            return Ok(result);
+        }
         //[HttpGet("{id}")]
         //public async Task<IActionResult> GetGameById(int id)
         //{
@@ -91,34 +101,6 @@ namespace GameLibrary.API.Controllers
         //        return NotFound();
 
         //    return Ok(result);
-        //}
-
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> UpdateGameById(int id, [FromBody] UpdateGameDto dto)
-        //{
-        //    try
-        //    {
-        //        await _gameService.UpdateGameAsync(id, dto);
-        //        return NoContent();
-        //    }
-        //    catch (ArgumentException ex)
-        //    {
-        //        return NotFound(ex.Message);
-        //    }
-        //}
-
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteGameById(int id)
-        //{
-        //    try
-        //    {
-        //        await _gameService.DeleteGameByIdAsync(id);
-        //        return NoContent();
-        //    }
-        //    catch (ArgumentException ex)
-        //    {
-        //        return NotFound(ex.Message);
-        //    }
         //}
     }
 }
