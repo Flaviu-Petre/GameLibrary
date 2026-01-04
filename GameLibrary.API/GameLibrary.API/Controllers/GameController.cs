@@ -52,6 +52,27 @@ namespace GameLibrary.API.Controllers
                 return StatusCode(500, "An error occurred while processing your request.");
             }
         }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateGameById(int id, [FromBody] UpdateGameDto dto)
+        {
+            try
+            {
+                await _gameService.UpdateGameAsync(id, dto);
+                return NoContent();
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while updating the game.");
+            }
+        }
         //[HttpGet("{id}")]
         //public async Task<IActionResult> GetGameById(int id)
         //{

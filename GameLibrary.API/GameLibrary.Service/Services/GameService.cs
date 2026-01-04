@@ -68,5 +68,17 @@ namespace GameLibrary.Service.Services
 
             await _gameDomain.DeleteGameAsync(id);
         }
+        public async Task UpdateGameAsync(int id, UpdateGameDto dto)
+        {
+            if (id <= 0)
+                throw new ArgumentException("Invalid game ID.");
+
+            if (string.IsNullOrWhiteSpace(dto.Title))
+                throw new ArgumentException("Title required.");
+
+            var gameInfo = dto.ToEntity();
+
+            await _gameDomain.UpdateGameAsync(id, gameInfo, dto.GenreIds);
+        }
     }
 }
