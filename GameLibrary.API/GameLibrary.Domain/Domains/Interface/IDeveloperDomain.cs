@@ -12,7 +12,7 @@ namespace GameLibrary.Domain.Domains.Interface
         Task DeleteDeveloperAsync(int id);
 
         Task<IEnumerable<Developer>> SP_GetDevelopersByCountryAsync(string country);
-
         Task<IEnumerable<Developer>> SP_GetDevelopersPaginatedAsync(int pageNumber, int pageSize);
+        Task<IEnumerable<Developer>> SP_GetDevelopersFoundedInDateRangeAsync(DateTime startDate, DateTime endDate);
     }
 }

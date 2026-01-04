@@ -13,6 +13,7 @@ namespace GameLibrary.Service.Services.Interface
         Task UpdateDeveloperAsync(int id, UpdateDeveloperDto dto);
         Task<IEnumerable<DeveloperDto>> SP_GetDevelopersByCountryAsync(string country);
         Task<IEnumerable<DeveloperDto>> SP_GetDevelopersPaginatedAsync(int pageNumber, int pageSize);
+        Task<IEnumerable<DeveloperDto>> SP_GetDevelopersFoundedInDateRangeAsync(DateTime startDate, DateTime endDate);
 
     }
 }

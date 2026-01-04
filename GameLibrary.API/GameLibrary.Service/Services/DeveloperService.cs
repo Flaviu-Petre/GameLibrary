@@ -86,5 +86,21 @@ namespace GameLibrary.Service.Services
             var developers = await _developerDomain.SP_GetDevelopersPaginatedAsync(pageNumber, pageSize);
             return developers.Select(d => d.ToDto());
         }
+
+        public async Task<IEnumerable<DeveloperDto>> SP_GetDevelopersFoundedInDateRangeAsync(DateTime startDate, DateTime endDate)
+        {
+            if (startDate == DateTime.MinValue || endDate == DateTime.MinValue)
+                throw new ArgumentException("Valid start and end dates are required.");
+
+            if (startDate > endDate)
+                throw new ArgumentException("Start date must be earlier than or equal to the end date.");
+
+            if (endDate > DateTime.UtcNow)
+                throw new ArgumentException("End date cannot be in the future.");
+
+            var developers = await _developerDomain.SP_GetDevelopersFoundedInDateRangeAsync(startDate, endDate);
+
+            return developers.Select(d => d.ToDto());
+        }
     }
 }

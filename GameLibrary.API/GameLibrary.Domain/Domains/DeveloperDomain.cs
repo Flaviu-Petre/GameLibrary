@@ -59,5 +59,13 @@ namespace GameLibrary.Domain.Domains
 
             return await _developerRepository.SP_GetDevelopersPaginatedAsync(pageNumber, pageSize);
         }
+
+        public async Task<IEnumerable<Developer>> SP_GetDevelopersFoundedInDateRangeAsync(DateTime startDate, DateTime endDate)
+        {
+            if (startDate > endDate)
+                throw new ArgumentException("Start date cannot be later than end date");
+
+            return await _developerRepository.SP_GetDevelopersFoundedInDateRangeAsync(startDate, endDate);
+        }
     }
 }

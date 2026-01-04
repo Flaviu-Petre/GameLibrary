@@ -73,5 +73,14 @@ namespace GameLibrary.API.Controllers
             var developers = await _developerService.SP_GetDevelopersPaginatedAsync(pageNumber, pageSize);
             return Ok(developers);
         }
+
+        [HttpGet("sp/foundedInDateRange")]
+        public async Task<ActionResult<IEnumerable<DeveloperDto>>> SP_GetFoundedInDateRange(
+            [FromQuery] DateTime startDate,
+            [FromQuery] DateTime endDate)
+        {
+            var developers = await _developerService.SP_GetDevelopersFoundedInDateRangeAsync(startDate, endDate);
+            return Ok(developers);
+        }
     }
 }

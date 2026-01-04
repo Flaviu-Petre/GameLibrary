@@ -49,5 +49,17 @@ namespace GameLibrary.Repository.Repository
                 .AsNoTracking()
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<Developer>> SP_GetDevelopersFoundedInDateRangeAsync(DateTime startDate, DateTime endDate)
+        {
+            var startParam = new SqlParameter("@StartDate", startDate);
+            var endParam = new SqlParameter("@EndDate", endDate);
+
+            return await _dbSet
+                .FromSqlRaw("EXEC sp_GetDevelopersFoundedInDateRange @StartDate, @EndDate", startParam, endParam)
+                .IgnoreQueryFilters()
+                .AsNoTracking()
+                .ToListAsync();
+        }
     }
 }
