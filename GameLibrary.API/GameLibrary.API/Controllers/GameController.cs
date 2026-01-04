@@ -83,24 +83,22 @@ namespace GameLibrary.API.Controllers
 
             return Ok(result);
         }
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetGameById(int id)
-        //{
-        //    var result = await _gameService.GetGameByIdAsync(id);
-        //    if (result == null)
-        //        return NotFound();
+        [HttpGet("getByName/{name}")]
+        public async Task<IActionResult> GetGameByName(string name)
+        {
+            try
+            {
+                var result = await _gameService.GetGameByNameAsync(name);
 
-        //    return Ok(result);
-        //}
+                if (result == null)
+                    return NotFound($"Game with title '{name}' not found.");
 
-        //[HttpGet("getByName/{name}")]
-        //public async Task<IActionResult> GetGameByName(string name)
-        //{
-        //    var result = await _gameService.GetGameByNameAsync(name);
-        //    if (result == null)
-        //        return NotFound();
-
-        //    return Ok(result);
-        //}
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

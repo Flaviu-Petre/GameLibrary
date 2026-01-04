@@ -91,5 +91,21 @@ namespace GameLibrary.Service.Services
 
             return game.ToDto();
         }
+        public async Task<GameDto?> GetGameByNameAsync(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("Name cannot be empty.");
+            }
+
+            var game = await _gameDomain.GetGameByTitleAsync(name);
+
+            if (game == null)
+            {
+                return null;
+            }
+
+            return game.ToDto();
+        }
     }
 }

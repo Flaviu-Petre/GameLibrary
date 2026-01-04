@@ -129,5 +129,14 @@ namespace GameLibrary.Domain.Domains
         {
             return await _gameRepository.GetByIdAsync(id);
         }
+        public async Task<Game?> GetGameByTitleAsync(string title)
+        {
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                throw new ArgumentException("Game title cannot be empty.");
+            }
+
+            return await _gameRepository.GetByTitleAsync(title);
+        }
     }
 }

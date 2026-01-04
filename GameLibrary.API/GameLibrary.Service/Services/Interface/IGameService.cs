@@ -14,5 +14,6 @@ namespace GameLibrary.Service.Services.Interface
         Task DeleteGameByIdAsync(int id);
         Task UpdateGameAsync(int id, UpdateGameDto dto);
         Task<GameDto?> GetGameByIdAsync(int id);
+        Task<GameDto?> GetGameByNameAsync(string name);
     }
 }
