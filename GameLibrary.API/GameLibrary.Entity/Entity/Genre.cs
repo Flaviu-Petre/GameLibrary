@@ -11,9 +11,6 @@ public class Genre : BaseEntity
     // Navigation properties
     public virtual ICollection<Game> Games { get; set; } = new List<Game>();
 
-    [NotMapped]
-    public int GamesCount { get; set; }
-
     public Genre() { }
 
     public Genre(string name, string? description = null)
