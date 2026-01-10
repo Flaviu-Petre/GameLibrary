@@ -11,5 +11,8 @@ namespace GameLibrary.Service.Services.Interface
         Task<PlatformDto?> GetPlatformByNameAsync(string name);
         Task UpdatePlatformAsync(int id, UpdatePlatformDto dto);
         Task DeletePlatformAsync(int id);
+        Task<IEnumerable<PlatformDto>> SP_GetPlatformsPaginatedAsync(int pageNumber, int pageSize);
+        Task<IEnumerable<PlatformDto>> SP_SearchPlatformsByNameAsync(string nameTerm);
+        Task<IEnumerable<PlatformDto>> SP_GetPlatformsByReleaseYearAsync(int releaseYear);
     }
 }

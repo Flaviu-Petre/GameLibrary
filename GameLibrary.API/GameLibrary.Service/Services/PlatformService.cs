@@ -68,5 +68,30 @@ namespace GameLibrary.Service.Services
 
             await _platformDomain.DeletePlatformAsync(id);
         }
+
+        public async Task<IEnumerable<PlatformDto>> SP_GetPlatformsPaginatedAsync(int pageNumber, int pageSize)
+        {
+            var platforms = await _platformDomain.SP_GetPlatformsPaginatedAsync(pageNumber, pageSize);
+            return platforms.Select(p => p.ToDto());
+        }
+
+        public async Task<IEnumerable<PlatformDto>> SP_SearchPlatformsByNameAsync(string nameTerm)
+        {
+            if (string.IsNullOrWhiteSpace(nameTerm))
+                throw new ArgumentException("Search term cannot be empty");
+
+            var platforms = await _platformDomain.SP_SearchPlatformsByNameAsync(nameTerm);
+            return platforms.Select(p => p.ToDto());
+        }
+
+        public async Task<IEnumerable<PlatformDto>> SP_GetPlatformsByReleaseYearAsync(int releaseYear)
+        {
+            if (releaseYear < 1950 || releaseYear > DateTime.Now.Year + 5)
+                throw new ArgumentException("Invalid release year");
+
+            var platforms = await _platformDomain.SP_GetPlatformsByReleaseYearAsync(releaseYear);
+            return platforms.Select(p => p.ToDto());
+        }
+
     }
 }

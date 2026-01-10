@@ -37,6 +37,23 @@ namespace GameLibrary.Domain.Domains
             await _platformRepository.SoftDeleteAsync(id);
             await _platformRepository.SaveChangesAsync();
         }
+        public async Task<IEnumerable<Platform>> SP_GetPlatformsPaginatedAsync(int pageNumber, int pageSize)
+        {
+            if (pageNumber < 1) pageNumber = 1;
+            if (pageSize < 1) pageSize = 10;
+
+            return await _platformRepository.SP_GetPlatformsPaginatedAsync(pageNumber, pageSize);
+        }
+
+        public async Task<IEnumerable<Platform>> SP_SearchPlatformsByNameAsync(string nameTerm)
+        {
+            return await _platformRepository.SP_SearchPlatformsByNameAsync(nameTerm);
+        }
+
+        public async Task<IEnumerable<Platform>> SP_GetPlatformsByReleaseYearAsync(int releaseYear)
+        {
+            return await _platformRepository.SP_GetPlatformsByReleaseYearAsync(releaseYear);
+        }
     }
 
 }

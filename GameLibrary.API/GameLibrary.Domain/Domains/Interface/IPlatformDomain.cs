@@ -10,6 +10,9 @@ namespace GameLibrary.Domain.Domains.Interface
         Task AddPlatformAsync(Platform platform);
         Task UpdatePlatformAsync(Platform platform);
         Task DeletePlatformAsync(int id);
+        Task<IEnumerable<Platform>> SP_GetPlatformsPaginatedAsync(int pageNumber, int pageSize);
+        Task<IEnumerable<Platform>> SP_SearchPlatformsByNameAsync(string nameTerm);
+        Task<IEnumerable<Platform>> SP_GetPlatformsByReleaseYearAsync(int releaseYear);
 
     }
 }

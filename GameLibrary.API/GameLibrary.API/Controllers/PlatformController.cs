@@ -58,5 +58,29 @@ namespace GameLibrary.API.Controllers
              await _platformService.DeletePlatformAsync(id);
              return NoContent();
         }
+
+        [HttpGet("sp/paginated")]
+        public async Task<ActionResult<IEnumerable<PlatformDto>>> SP_GetPaginated(
+        [FromQuery] int pageNumber = 1,
+        [FromQuery] int pageSize = 10)
+        {
+            var platforms = await _platformService.SP_GetPlatformsPaginatedAsync(pageNumber, pageSize);
+            return Ok(platforms);
+        }
+
+        [HttpGet("sp/search")]
+        public async Task<ActionResult<IEnumerable<PlatformDto>>> SP_SearchByName([FromQuery] string term)
+        {
+            var platforms = await _platformService.SP_SearchPlatformsByNameAsync(term);
+            return Ok(platforms);
+        }
+
+        [HttpGet("sp/byYear")]
+        public async Task<ActionResult<IEnumerable<PlatformDto>>> SP_GetByReleaseYear([FromQuery] int year)
+        {
+            var platforms = await _platformService.SP_GetPlatformsByReleaseYearAsync(year);
+            return Ok(platforms);
+        }
+
     }
 }
