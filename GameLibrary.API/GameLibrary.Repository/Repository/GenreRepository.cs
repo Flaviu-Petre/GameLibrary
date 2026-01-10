@@ -17,5 +17,19 @@ namespace GameLibrary.Repository.Repository
             return await GetQueryable().
                 FirstOrDefaultAsync(g => g.Name == name);
         }
+
+        public override async Task<IEnumerable<Genre>> GetAllAsync(bool includeDeleted = false)
+        {
+            return await GetQueryable(includeDeleted)
+                .Include(g => g.Games)
+                .ToListAsync();
+        }
+
+        public override async Task<Genre?> GetByIdAsync(int id, bool includeDeleted = false)
+        {
+            return await GetQueryable(includeDeleted)
+                .Include(g => g.Games)
+                .FirstOrDefaultAsync(g => g.Id == id);
+        }
     }
 }
