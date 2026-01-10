@@ -10,5 +10,7 @@ namespace GameLibrary.Service.Services.Interface
         Task<GenreDto?> GetGenreByNameAsync(string name);
         Task<GenreDto> UpdateGenreAsync(int id, UpdateGenreDto dto);
         Task DeleteGenreByIdAsync(int id);
+        Task<IEnumerable<SearchGenreDto>> SP_GetGenresByPartialNameAsync(string nameTerm);
+        Task<IEnumerable<SearchGenreDto>> SP_GetGenresPaginatedAsync(int pageNumber, int pageSize);
     }
 }

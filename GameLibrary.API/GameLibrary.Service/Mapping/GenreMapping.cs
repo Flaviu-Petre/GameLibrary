@@ -21,6 +21,16 @@ namespace GameLibrary.Service.Mapping
             };
         }
 
+        public static SearchGenreDto ToSearchDto(this Genre entity)
+        {
+            return new SearchGenreDto
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Description = entity.Description,
+            };
+        }
+
         public static Genre ToEntity(this CreateGenreDto dto)
         {
             return new Genre

@@ -1,4 +1,5 @@
 using GameLibrary.Integration.Logger;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GameLibrary.Entity.Entities;
 
@@ -9,6 +10,9 @@ public class Genre : BaseEntity
     
     // Navigation properties
     public virtual ICollection<Game> Games { get; set; } = new List<Game>();
+
+    [NotMapped]
+    public int GamesCount { get; set; }
 
     public Genre() { }
 

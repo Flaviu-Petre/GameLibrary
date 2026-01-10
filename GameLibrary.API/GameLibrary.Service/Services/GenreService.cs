@@ -67,5 +67,17 @@ namespace GameLibrary.Service.Services
 
             await _genreDomain.DeleteGenreByIdAsync(id);
         }
+
+        public async Task<IEnumerable<SearchGenreDto>> SP_GetGenresByPartialNameAsync(string nameTerm)
+        {
+            var genres = await _genreDomain.SP_GetGenresByPartialNameAsync(nameTerm);
+            return genres.Select(g => g.ToSearchDto());
+        }
+
+        public async Task<IEnumerable<SearchGenreDto>> SP_GetGenresPaginatedAsync(int pageNumber, int pageSize)
+        {
+            var genres = await _genreDomain.SP_GetGenresPaginatedAsync(pageNumber, pageSize);
+            return genres.Select(g => g.ToSearchDto());
+        }
     }
 }

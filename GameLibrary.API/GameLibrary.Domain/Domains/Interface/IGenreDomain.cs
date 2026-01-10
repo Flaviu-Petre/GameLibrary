@@ -11,5 +11,7 @@ namespace GameLibrary.Domain.Domains.Interface
         Task<Genre?> GetGenreByNameAsync(string name);
         Task UpdateGenreAsync(Genre genre);
         Task DeleteGenreByIdAsync(int id);
+        Task<IEnumerable<Genre>> SP_GetGenresByPartialNameAsync(string nameTerm);
+        Task<IEnumerable<Genre>> SP_GetGenresPaginatedAsync(int pageNumber, int pageSize);
     }
 }

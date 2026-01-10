@@ -59,5 +59,24 @@ namespace GameLibrary.API.Controllers
             await _genreService.DeleteGenreByIdAsync(id);
             return NoContent();
         }
+
+        [HttpGet("sp/search")]
+        public async Task<ActionResult<IEnumerable<SearchGenreDto>>> SP_SearchByPartialName([FromQuery] string term)
+        {
+            if (string.IsNullOrWhiteSpace(term))
+                return BadRequest("Search term cannot be empty.");
+
+            var result = await _genreService.SP_GetGenresByPartialNameAsync(term);
+            return Ok(result);
+        }
+
+        [HttpGet("sp/paginated")]
+        public async Task<ActionResult<IEnumerable<SearchGenreDto>>> SP_GetPaginated(
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10)
+        {
+            var result = await _genreService.SP_GetGenresPaginatedAsync(pageNumber, pageSize);
+            return Ok(result);
+        }
     }
 }

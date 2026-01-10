@@ -2,6 +2,7 @@
 using GameLibrary.Repository.Context;
 using GameLibrary.Repository.Repositories;
 using GameLibrary.Repository.Repository.Interface;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameLibrary.Repository.Repository
@@ -30,6 +31,32 @@ namespace GameLibrary.Repository.Repository
             return await GetQueryable(includeDeleted)
                 .Include(g => g.Games)
                 .FirstOrDefaultAsync(g => g.Id == id);
+        }
+
+        public async Task<IEnumerable<Genre>> SP_GetGenresByPartialNameAsync(string nameTerm)
+        {
+            var nameParam = new SqlParameter("@NameTerm", nameTerm ?? string.Empty);
+
+            return await _dbSet
+                .FromSqlRaw("EXEC sp_GetGenresByPartialName @NameTerm", nameParam)
+                .IgnoreQueryFilters()
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Genre>> SP_GetGenresPaginatedAsync(int pageNumber, int pageSize)
+        {
+            if (pageNumber < 1) pageNumber = 1;
+            if (pageSize < 1) pageSize = 10;
+
+            var pageNumberParam = new SqlParameter("@PageNumber", pageNumber);
+            var pageSizeParam = new SqlParameter("@PageSize", pageSize);
+
+            return await _dbSet
+                .FromSqlRaw("EXEC sp_GetGenresPaginated @PageNumber, @PageSize", pageNumberParam, pageSizeParam)
+                .IgnoreQueryFilters()
+                .AsNoTracking()
+                .ToListAsync();
         }
     }
 }

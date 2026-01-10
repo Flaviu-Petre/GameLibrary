@@ -11,5 +11,7 @@ namespace GameLibrary.Repository.Repository.Interface
     public interface IGenreRepository : IRepository<Genre>
     {
         Task<Genre?> GetByNameAsync(string name);
+        Task<IEnumerable<Genre>> SP_GetGenresByPartialNameAsync(string nameTerm);
+        Task<IEnumerable<Genre>> SP_GetGenresPaginatedAsync(int pageNumber, int pageSize);
     }
 }

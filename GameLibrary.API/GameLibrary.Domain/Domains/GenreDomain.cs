@@ -43,5 +43,21 @@ namespace GameLibrary.Domain.Domains
             await _genreRepository.SoftDeleteAsync(id);
             await _genreRepository.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<Genre>> SP_GetGenresByPartialNameAsync(string nameTerm)
+        {
+            if (string.IsNullOrEmpty(nameTerm))
+                return new List<Genre>();
+
+            return await _genreRepository.SP_GetGenresByPartialNameAsync(nameTerm);
+        }
+
+        public async Task<IEnumerable<Genre>> SP_GetGenresPaginatedAsync(int pageNumber, int pageSize)
+        {
+            if (pageNumber < 1) pageNumber = 1;
+            if (pageSize < 1) pageSize = 10;
+
+            return await _genreRepository.SP_GetGenresPaginatedAsync(pageNumber, pageSize);
+        }
     }
 }
