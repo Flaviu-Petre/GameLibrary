@@ -16,5 +16,7 @@ namespace GameLibrary.Service.Services.Interface
         Task<PublisherDto> GetPublisherByNameAsync(string name);
         Task DeletePublisherAsync(int id);
         public Task UpdatePublisherAsync(UpdatePublisherDto dto);
+        Task<IEnumerable<PublisherDto>> SP_GetPublishersByCountryAsync(string country);
+        Task<IEnumerable<PublisherDto>> SP_GetPublishersPaginatedAsync(int page, int pageSize);
     }
 }

@@ -71,5 +71,20 @@ namespace GameLibrary.Service.Services
 
             return _publisherDomain.UpdatePublisherAsync(publisher);
         }
+        public async Task<IEnumerable<PublisherDto>> SP_GetPublishersByCountryAsync(string country)
+        {
+            if (string.IsNullOrEmpty(country)) return new List<PublisherDto>();
+
+            var publishers = await _publisherDomain.GetPublishersByCountryAsync(country);
+
+            return publishers.Select(p => p.ToDto());
+        }
+
+        public async Task<IEnumerable<PublisherDto>> SP_GetPublishersPaginatedAsync(int page, int pageSize)
+        {
+            var publishers = await _publisherDomain.GetPublishersPaginatedAsync(page, pageSize);
+
+            return publishers.Select(p => p.ToDto());
+        }
     }
 }

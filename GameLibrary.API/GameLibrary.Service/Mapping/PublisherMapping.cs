@@ -26,7 +26,8 @@ namespace GameLibrary.Service.Mapping
             return new Publisher
             {
                 Name = dto.Name,
-                Website = dto.Website
+                Website = dto.Website,
+                Country = dto.Country
             };
         }
 
@@ -36,7 +37,8 @@ namespace GameLibrary.Service.Mapping
             {
                 Id = dto.Id,
                 Name = dto.Name,
-                Website = dto.Website
+                Website = dto.Website,
+                Country = dto.Country
             };
         }
     }

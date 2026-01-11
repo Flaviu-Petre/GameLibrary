@@ -15,5 +15,7 @@ namespace GameLibrary.Domain.Domains.Interface
         Task AddPublisherAsync(Publisher publisher);
         Task UpdatePublisherAsync(Publisher publisher);
         Task DeletePublisherAsync(int id);
+        Task<IEnumerable<Publisher>> GetPublishersByCountryAsync(string country);
+        Task<IEnumerable<Publisher>> GetPublishersPaginatedAsync(int page, int pageSize);
     }
 }

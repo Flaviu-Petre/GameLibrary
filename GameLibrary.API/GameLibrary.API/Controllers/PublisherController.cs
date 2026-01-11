@@ -58,5 +58,33 @@ namespace GameLibrary.API.Controllers
             await _publisherService.DeletePublisherAsync(id);
             return NoContent();
         }
+
+        [HttpGet("country/{country}")]
+        public async Task<IActionResult> GetByCountry(string country)
+        {
+            try
+            {
+                var result = await _publisherService.SP_GetPublishersByCountryAsync(country);
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("paginated")]
+        public async Task<IActionResult> GetPaginated([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+        {
+            try
+            {
+                var result = await _publisherService.SP_GetPublishersPaginatedAsync(page, pageSize);
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

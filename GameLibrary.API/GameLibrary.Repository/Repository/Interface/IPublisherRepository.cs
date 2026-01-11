@@ -11,5 +11,8 @@ namespace GameLibrary.Repository.Repository.Interface
     public interface IPublisherRepository : IRepository<Publisher>
     {
         Task<Publisher?> GetByNameAsync(string name);
+
+        Task<IEnumerable<Publisher>> GetByCountryAsync(string country);
+        Task<IEnumerable<Publisher>> GetPaginatedAsync(int page, int pageSize);
     }
 }

@@ -48,6 +48,23 @@ namespace GameLibrary.Domain.Domains
                 throw new ArgumentException($"Error deleting publisher with ID {id}: {ex.Message}");
             }
             await _publisherRepository.SaveChangesAsync();
-        }   
+        }
+        public async Task<IEnumerable<Publisher>> GetPublishersByCountryAsync(string country)
+        {
+            if (string.IsNullOrWhiteSpace(country))
+            {
+                throw new ArgumentException("Country name cannot be empty.");
+            }
+
+            return await _publisherRepository.GetByCountryAsync(country);
+        }
+
+        public async Task<IEnumerable<Publisher>> GetPublishersPaginatedAsync(int page, int pageSize)
+        {
+            if (page <= 0) throw new ArgumentException("Page number must be greater than 0.");
+            if (pageSize <= 0) throw new ArgumentException("Page size must be greater than 0.");
+
+            return await _publisherRepository.GetPaginatedAsync(page, pageSize);
+        }
     }
 }
